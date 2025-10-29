@@ -1,3 +1,7 @@
+body {
+    background-color: #E6E6FA;
+}
+
 h1{
     background-color: aliceblue;
     padding: 5px;
@@ -28,3 +32,4 @@ img{
     margin-right: 25px;
     border-radius: 5px;
 }
+
