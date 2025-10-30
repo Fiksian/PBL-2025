@@ -37,40 +37,40 @@
     color: #ffffff;
 }
 
-.title{
-    width: 45%;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    background-color: #4591d8;
-    color: white;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    overflow: hidden;
-}
-
 .profile{
     width: 45%;
     margin: 0 auto;
     border: 1px solid #ccc;
-    padding: 10px;
     border-radius: 10px;
     background-color: #ffffff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     overflow: hidden;
+
+}
+.title{
+    width: 100%;
+    border-top: 10px;
+    background-color: #4591d8;
+    color: rgb(255, 255, 255);
+    margin : 0 auto;
+    margin-bottom: 20px;
 }
 
-.profile img{
+.title-data{
+    display: inline-block;
+    width: 40%;
+    padding: 10px;
+}
+
+.foto-profil{
     margin: 0 auto;
     border:#1abad6 4px solid;
     border-radius: 50%;
     width: 150px;
     height: 150px;
     object-fit: cover;
-    float : left;
-    margin : 50px 25px 50px 25px;
+    float:inline-start;
+    margin: 80px 40px 10px 40px;
 }
 
 .biodata{
