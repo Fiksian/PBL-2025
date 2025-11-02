@@ -8,7 +8,6 @@
     width: 800px;
     height: 150px;  
     background-color: chocolate;
-    text-align: right;
     display: inline-block;
     margin-left : 540px;  
     border-left: 1px solid #ccc;
@@ -21,16 +20,19 @@
     display: inline-block;
     margin-top: 20px;
     margin-left: 50px;
+    text-align: left;
 }
 
-.navlinks{
+.nav-links{
     display:inline-block;
-    margin-right: 50px;
+    text-align: right;
+    justify-content: center;
+    margin-left : 150px;
+    margin-top: -40px;
 }
 
 .navbar h1{
     display:inline-block;
-    margin-right: 200px;
 }
 
 .navbar li{
