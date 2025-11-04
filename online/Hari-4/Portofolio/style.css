@@ -95,7 +95,6 @@ top: 50%;
 /*Navigation*/
 .nav-bar {
     position:fixed;
-    width: 100%;
     z-index: 1;
     display: flex;
     justify-content: space-between;
@@ -434,7 +433,7 @@ top: 50%;
 }
 
 /* Footer Section */
-footer {
+.footer {
     padding: 4rem 0;
     background: var(--secondaryBackgroundColor);
     text-align: center;
