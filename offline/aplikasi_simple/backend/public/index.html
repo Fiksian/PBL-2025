@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Saklar Lampu</title>
+</head>
+
+<body>
+<label for="switch">Isikan Status Lampu</label>
+
+<div class="row">
+    <!--1. Komponen dropdown untuk memilih status-->
+    <select id="switch">
+        <option value="Off">Off</option>
+        <option value="On">On</option>
+    </select>
+    <!--1. Komponen  untuk menampilkan status-->
+    <span class="hasil" id="output">-</span>
+</div>
+<script>
+    const selectEL = document.getElementById('switch');
+    const outputEL = document.getElementById('output');
+
+    async function updateOutput(){
+        const val = selectEL.value;
+        try {
+            const res = await fetch(`/api/translate?switch=${encodeURIComponent(val)}`);
+            const data = await res.json();
+            outputEL.textContent = data.id || "-";
+        } catch {
+            outputEL.textContent = "-";
+        }
+    }
+
+    //set default tampilan dan listen perubahan
+    selectEL.addEventListener('change', updateOutput);
+    updateOutput();// muat awal (default off -> mati
+</script>
+</body>
+</html>

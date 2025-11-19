@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Form Kependudukan</title>
+</head>
+<body>
+<main>
+    <h1>Form Kependudukan</h1>
+
+    <div class="form">
+
+        <div class="nama">
+            <h3>Nama</h3>
+            <input type="text" name="nama" placeholder="Nama Lengkap">
+        </div>
+
+        <div class="jenisKelamin">
+            <h3>Jenis Kelamin</h3>
+            <select id="kelamin">
+                <option value="">--Pilih Kelamin--</option>
+                <option value="LK">Laki-laki</option>
+                <option value="PR">Perempuan</option>
+            </select>
+        </div>
+
+        <div class="status">
+            <h3>Status</h3>
+            <select id="status">
+                <option value="">--Pilih Status--</option>
+                <option value="lajang">Lajang</option>
+                <option value="kawin">Menikah</option>
+                <option value="cerai">Cerai</option>
+            </select>
+        </div>
+
+        <div class="keterangan">
+            <h3>Keterangan</h3>
+            <span class="hasil" id="output">-</span>
+        </div>
+
+    </div>
+</main>
+
+<!-- Perbaikan: memanggil form.js -->
+<script src="form.js"></script>
+</body>
+</html>

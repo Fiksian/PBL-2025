@@ -1,0 +1,45 @@
+:root{
+    --bg: #0f1724;
+    --box: #111827;
+    --inactive: #222831;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0;
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background: linear-gradient(180deg, #0b1220 0%, #071126 100%);
+    color:#e6eef8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+}
+
+main{
+    max-width:900px;
+    width:100%;
+    text-align: center;
+}
+h1{text-align:center;margin-bottom:18px}
+
+.traffic{
+    height:120px;
+    width:120px;
+    border-radius:50%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    /* efek transisi warna */
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+
+    /* inner shadow */
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+
+}
+
+#output {
+    display : none;
+}
+
