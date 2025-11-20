@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uji CRUD Akun (Laundry API)</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        form, .result-box { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 8px; margin: 5px 0 10px 0; display: inline-block; border: 1px solid #ccc; box-sizing: border-box; }
+        button { background-color: #4CAF50; color: white; padding: 10px 15px; margin: 8px 0; border: none; cursor: pointer; width: auto; }
+        button:hover { opacity: 0.8; }
+        .result-box { background-color: #f9f9f9; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <h1>Uji CRUD API Akun</h1>
+    <p>Gunakan ID yang unik, contoh: **P001**</p>
+
+    <form id="akunForm">
+        <h2>Tambah/Edit Akun</h2>
+        <label for="id"><b>ID Akun (e.g., P001):</b></label>
+        <input type="text" placeholder="Masukkan ID" name="id" required>
+
+        <label for="nama"><b>Nama:</b></label>
+        <input type="text" placeholder="Masukkan Nama" name="nama" required>
+
+        <label for="pass"><b>Password:</b></label>
+        <input type="password" placeholder="Masukkan Password" name="pass" required>
+
+        <label for="alamat"><b>Alamat:</b></label>
+        <input type="text" placeholder="Masukkan Alamat" name="alamat">
+
+        <label for="no_hp"><b>No HP:</b></label>
+        <input type="text" placeholder="Masukkan No HP" name="no_hp">
+
+        <label for="status_akun"><b>Status Akun (contoh: aktif):</b></label>
+        <input type="text" placeholder="Masukkan Status Akun" name="status_akun">
+
+        <button type="submit" onclick="submitAkun('POST')">CREATE Akun</button>
+        <button type="submit" onclick="submitAkun('PUT')">UPDATE Akun</button>
+    </form>
+
+    <hr>
+
+    <form onsubmit="readAkun('ALL'); return false;">
+        <h2>Baca Semua Akun</h2>
+        <button type="submit">READ ALL</button>
+    </form>
+
+    <form onsubmit="readAkun('ID'); return false;">
+        <h2>Baca Akun Berdasarkan ID</h2>
+        <label for="readId"><b>ID Akun:</b></label>
+        <input type="text" id="readId" placeholder="Masukkan ID untuk dibaca" required>
+        <button type="submit">READ by ID</button>
+    </form>
+
+    <form onsubmit="deleteAkun(); return false;">
+        <h2>Hapus Akun</h2>
+        <label for="deleteId"><b>ID Akun:</b></label>
+        <input type="text" id="deleteId" placeholder="Masukkan ID untuk dihapus" required>
+        <button style="background-color: #f44336;" type="submit">DELETE</button>
+    </form>
+
+    <div class="result-box">
+        <h3>Hasil Respon Server:</h3>
+        <pre id="result"></pre>
+    </div>
+
+    <script>
+        const resultBox = document.getElementById('result');
+
+        // Fungsi untuk menampilkan hasil respons
+        function displayResult(data, status, message) {
+            let output = `Status: ${status}\n`;
+            output += `Pesan: ${message}\n\n`;
+            if (typeof data === 'object') {
+                output += JSON.stringify(data, null, 2);
+            } else {
+                output += data;
+            }
+            resultBox.textContent = output;
+        }
+
+        // Fungsi untuk operasi CREATE dan UPDATE
+        async function submitAkun(method) {
+            event.preventDefault(); // Mencegah form submit default
+
+            const form = document.getElementById('akunForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            const id = data.id;
+
+            let url = `/akun`;
+            if (method === 'PUT') {
+                url = `/akun/${id}`;
+            }
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                
+                const message = await response.text();
+                displayResult(message, response.status, method === 'POST' ? 'CREATE' : 'UPDATE');
+            } catch (error) {
+                displayResult(error.message, 'ERROR', 'Gagal Koneksi ke Server');
+            }
+        }
+
+        // Fungsi untuk operasi READ
+        async function readAkun(type) {
+            const readId = document.getElementById('readId').value;
+            let url = '/akun';
+
+            if (type === 'ID') {
+                if (!readId) {
+                    displayResult('Harap masukkan ID Akun', '400', 'READ by ID Gagal');
+                    return;
+                }
+                url = `/akun/${readId}`;
+            }
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const message = response.ok ? 'Berhasil' : 'Gagal';
+                displayResult(data, response.status, `READ ${type}`);
+            } catch (error) {
+                 displayResult(error.message, 'ERROR', 'Gagal Koneksi ke Server');
+            }
+        }
+
+        // Fungsi untuk operasi DELETE
+        async function deleteAkun() {
+            event.preventDefault(); // Mencegah form submit default
+            const deleteId = document.getElementById('deleteId').value;
+
+            if (!deleteId) {
+                displayResult('Harap masukkan ID Akun', '400', 'DELETE Gagal');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/akun/${deleteId}`, {
+                    method: 'DELETE'
+                });
+                
+                const message = await response.text();
+                displayResult(message, response.status, 'DELETE');
+            } catch (error) {
+                 displayResult(error.message, 'ERROR', 'Gagal Koneksi ke Server');
+            }
+        }
+    </script>
+</body>
+</html>
