@@ -1,0 +1,310 @@
+/* public/css/style.css */
+:root {
+    --primary-color: #007bff; /* Biru cerah */
+    --secondary-color: #6c757d; /* Abu-abu */
+    --success-color: #28a745; /* Hijau */
+    --warning-color: #ffc107; /* Kuning */
+    --danger-color: #dc3545; /* Merah */
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-color: #333;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+h1, h2, h3 {
+    text-align: center;
+    color: var(--primary-color);
+}
+
+h1 { font-size: 2.5em; margin-bottom: 5px; }
+h2 { font-size: 1.8em; margin-bottom: 30px; }
+
+/* Form Status */
+.status-form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.status-form input[type="text"] {
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    width: 60%;
+    font-size: 1em;
+}
+
+/* Tombol */
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-size: 1em;
+    text-align: center;
+}
+
+.btn.primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn.primary:hover {
+    background-color: #0056b3;
+}
+
+.btn.secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn.secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Status Card */
+.status-card {
+    border: 1px solid #eee;
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: #e9f7ff;
+    border-left: 5px solid var(--primary-color);
+}
+
+.status-content p {
+    margin: 8px 0;
+}
+
+.status-tag {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 700;
+    margin-top: 10px;
+    color: white;
+}
+
+.status-menunggu-diproses { background-color: var(--secondary-color); }
+.status-sedang-dicuci { background-color: var(--primary-color); }
+.status-siap-diambil { background-color: var(--warning-color); }
+.status-lunas { background-color: var(--success-color); }
+
+.message {
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: var(--danger-color);
+    border: 1px solid #f5c6cb;
+}
+.warning-message {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+/* Invoice Page Styling */
+.invoice-page header {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.section-invoice-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.section-invoice-header h3 {
+    text-align: left;
+    color: var(--secondary-color);
+}
+
+.section-detail-layanan table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.section-detail-layanan th, .section-detail-layanan td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.section-detail-layanan th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+.section-summary {
+    text-align: right;
+    margin-top: 20px;
+    border-top: 2px dashed #ddd;
+    padding-top: 15px;
+}
+
+.section-summary .total {
+    font-size: 1.5em;
+    color: var(--danger-color);
+}
+
+.section-pembayaran {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.payment-form label {
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.payment-form input, .payment-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.back-link {
+    display: block;
+    width: fit-content;
+    margin: 30px auto 0;
+    background-color: #ccc;
+    color: var(--text-color);
+}
+
+.back-link:hover {
+    background-color: #b3b3b3;
+}
+
+/* ... (Gaya CSS yang sudah ada) */
+
+/* Gaya baru untuk Formulir Pesanan */
+.order-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.section-form {
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+}
+
+.section-form h3 {
+    text-align: left;
+    color: var(--secondary-color);
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.section-form label {
+    display: block;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.section-form input[type="text"],
+.section-form input[type="number"],
+.section-form select,
+.section-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.detail-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item {
+    padding: 15px 0;
+}
+
+.detail-item hr {
+    margin: 15px 0;
+    border-top: 1px dashed #ddd;
+}
+
+.detail-item button.danger {
+    background-color: var(--danger-color);
+    color: white;
+    padding: 8px 15px;
+    margin-top: 10px;
+}
+
+.detail-item button.danger:hover {
+    background-color: #b02a37;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.main-actions {
+    text-align: center;
+    margin: 20px 0 40px 0;
+}
+
+.large-btn {
+    font-size: 1.2em;
+    padding: 15px 35px;
+    display: inline-block;
+    min-width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.large-btn:hover {
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+}
+
+/* ... (Gaya CSS lainnya yang sudah ada) ... */

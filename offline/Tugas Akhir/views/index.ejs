@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Status Laundry - FreshClean</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>🧺 FreshClean Laundry</h1>
+        
+        <div class="main-actions">
+            <a href="/order/new" class="btn primary large-btn">
+                ✨ **Buat Pesanan Baru**
+            </a>
+        </div>
+        <h2>Cek Status Pesanan Anda</h2>
+
+        <form action="/check-status" method="POST" class="status-form">
+            <input type="text" name="no_pesanan" placeholder="Masukkan Nomor Pesanan (e.g. FCL-001)" required>
+            <button type="submit" class="btn primary">Cek Status</button>
+        </form>
+
+        <% if (error) { %>
+            <p class="message error-message">❌ <%= error %></p>
+        <% } %>
+
+        <% if (statusData) { %>
+            <div class="status-card">
+                <h3>Detail Pesanan: **<%= statusData.no_pesanan %>**</h3>
+                <div class="status-content">
+                    <p><strong>Nama Pelanggan:</strong> <%= statusData.nama_pelanggan %></p>
+                    <p><strong>Tanggal Pesanan:</strong> <%= statusData.tanggal_pesanan.toDateString() %></p>
+                    <p><strong>Estimasi Selesai:</strong> <%= statusData.tanggal_selesai ? statusData.tanggal_selesai.toDateString() : 'N/A' %></p>
+                    <p><strong>Total Biaya:</strong> Rp <%= statusData.total_harga.toLocaleString('id-ID') %></p>
+                    <p class="status-tag status-<%= statusData.status_pesanan.toLowerCase().replace(/\s/g, '-') %>">
+                        Status: **<%= statusData.status_pesanan %>**
+                    </p>
+                </div>
+                <div class="action-buttons">
+                    <a href="/invoice/<%= statusData.no_pesanan %>" class="btn secondary">Lihat Invoice & Pembayaran</a>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

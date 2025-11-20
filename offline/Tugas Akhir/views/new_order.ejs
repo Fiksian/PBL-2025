@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Pesanan Baru - FreshClean</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Pesanan Laundry Baru</h1>
+        <h2>Isi Detail Pelanggan dan Layanan</h2>
+
+        <% if (error) { %>
+            <p class="message error-message">❌ **Error:** <%= error %></p>
+        <% } %>
+
+        <form action="/order/new" method="POST" class="order-form">
+            <div class="section-form">
+                <h3>Detail Pelanggan Baru/Lama</h3>
+                <label for="nama_pelanggan">Nama Lengkap:</label>
+                <input type="text" name="nama_pelanggan" required>
+
+                <label for="no_hp">Nomor HP (Akan menjadi ID unik):</label>
+                <input type="text" name="no_hp" placeholder="Contoh: 0812345678" required>
+                
+                <label for="alamat">Alamat:</label>
+                <textarea name="alamat" rows="2"></textarea>
+            </div>
+            
+            <div class="section-form detail-container">
+                <h3>Detail Layanan Laundry</h3>
+                
+                <div class="detail-item">
+                    <label for="id_layanan">Pilih Layanan:</label>
+                    <select name="id_layanan" required>
+                        <option value="">-- Pilih Layanan --</option>
+                        <% layanan.forEach(l => { %>
+                            <option value="<%= l.id_layanan %>"><%= l.nama_layanan %> (Rp <%= l.harga_per_kg.toLocaleString('id-ID') %>/Kg)</option>
+                        <% }); %>
+                    </select>
+
+                    <label for="berat_kg">Berat (Kg):</label>
+                    <input type="number" name="berat_kg" step="0.01" min="0.1" required>
+                </div>
+                
+                <div id="additional-services"></div>
+
+                <button type="button" class="btn secondary" id="add-service-btn" style="margin-top: 15px;">+ Tambah Layanan Lain</button>
+            </div>
+
+            <button type="submit" class="btn primary full-width" style="margin-top: 30px;">
+                Buat Pesanan
+            </button>
+        </form>
+
+        <a href="/" class="btn back-link">Kembali ke Beranda</a>
+    </div>
+
+    <script>
+        document.getElementById('add-service-btn').addEventListener('click', function() {
+            const container = document.getElementById('additional-services');
+            
+            const newItem = document.createElement('div');
+            newItem.classList.add('detail-item', 'mt-15');
+            newItem.innerHTML = `
+                <hr>
+                <label for="id_layanan">Pilih Layanan Tambahan:</label>
+                <select name="id_layanan" required>
+                    <option value="">-- Pilih Layanan --</option>
+                    <% layanan.forEach(l => { %>
+                        <option value="<%= l.id_layanan %>"><%= l.nama_layanan %> (Rp <%= l.harga_per_kg.toLocaleString('id-ID') %>/Kg)</option>
+                    <% }); %>
+                </select>
+                <label for="berat_kg">Berat (Kg):</label>
+                <input type="number" name="berat_kg" step="0.01" min="0.1" required>
+                <button type="button" class="btn danger remove-service-btn">Hapus</button>
+            `;
+            
+            container.appendChild(newItem);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('remove-service-btn')) {
+                e.target.closest('.detail-item').remove();
+            }
+        });
+    </script>
+</body>
+</html>

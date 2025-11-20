@@ -1,0 +1,27 @@
+GET http://localhost:3000
+
+###
+GET http://localhost:3000/api/students
+
+###
+
+POST http://localhost:3000/api/students
+content-type: application/json
+
+{
+  "nama": "Syihabin",
+  "alamat": "jalan bait asih",
+  "tanggal": "2025-09-01",
+  "jurusan": "TIK"
+}
+
+###
+PUT http://localhost:3000/api/students/2
+content-type: application/json
+
+{
+"nama": "Bahlil"
+}
+
+###
+DELETE http://localhost:3000/api/students/3

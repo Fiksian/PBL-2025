@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Pesanan - FreshClean</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container invoice-page">
+        <header>
+            <h1>🧾 INVOICE LAUNDRY</h1>
+            <p>FreshClean Laundry Service</p>
+        </header>
+        
+        <div class="section-invoice-header">
+            <div>
+                <p><strong>Nomor Pesanan:</strong> **<%= invoice.pesanan.no_pesanan %>**</p>
+                <p><strong>Tanggal Pesanan:</strong> <%= invoice.pesanan.tanggal_pesanan.toDateString() %></p>
+                <p><strong>Status Pesanan:</strong> 
+                    <span class="status-tag status-<%= invoice.pesanan.status_pesanan.toLowerCase().replace(/\s/g, '-') %>">
+                        <%= invoice.pesanan.status_pesanan %>
+                    </span>
+                </p>
+            </div>
+            <div>
+                <h3>Pelanggan</h3>
+                <p><strong>Nama:</strong> <%= invoice.pesanan.nama_pelanggan %></p>
+                <p><strong>Telp:</strong> <%= invoice.pesanan.no_hp %></p>
+                <p><strong>Alamat:</strong> <%= invoice.pesanan.alamat %></p>
+            </div>
+        </div>
+
+        <div class="section-detail-layanan">
+            <h3>Detail Layanan</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Layanan</th>
+                        <th>Berat (Kg)</th>
+                        <th>Harga/Kg</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% invoice.details.forEach(item => { %>
+                        <tr>
+                            <td><%= item.nama_layanan %></td>
+                            <td><%= item.berat_kg %></td>
+                            <td>Rp <%= item.harga_per_kg.toLocaleString('id-ID') %></td>
+                            <td>Rp **<%= item.subtotal.toLocaleString('id-ID') %>**</td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-summary">
+            <p class="total">**GRAND TOTAL: Rp <%= invoice.pesanan.total_harga.toLocaleString('id-ID') %>**</p>
+        </div>
+
+        <div class="section-pembayaran">
+            <h3>Informasi Pembayaran</h3>
+            <% if (invoice.pembayaran) { %>
+                <p>✅ **Pembayaran Terakhir**</p>
+                <p>Metode: **<%= invoice.pembayaran.metode %>**</p>
+                <p>Jumlah: Rp <%= invoice.pembayaran.jumlah_bayar.toLocaleString('id-ID') %></p>
+                <p>Tanggal Bayar: <%= invoice.pembayaran.tanggal_bayar.toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }) %></p>
+            <% } else { %>
+                <p class="message warning-message">⚠️ Belum ada pembayaran tercatat.</p>
+            <% } %>
+
+            <% if (invoice.pesanan.status_pesanan !== 'Lunas') { %>
+                <hr>
+                <h4>Form Pembayaran (Simulasi)</h4>
+                <form action="/process-payment" method="POST" class="payment-form">
+                    <input type="hidden" name="no_pesanan" value="<%= invoice.pesanan.no_pesanan %>">
+                    <label for="metode">Metode Pembayaran:</label>
+                    <select name="metode_pembayaran" required>
+                        <option value="Tunai">Tunai</option>
+                        <option value="Transfer Bank">Transfer Bank</option>
+                        <option value="E-Wallet">E-Wallet</option>
+                    </select>
+
+                    <label for="jumlah">Jumlah Bayar:</label>
+                    <input type="number" name="jumlah_bayar" value="<%= invoice.pesanan.total_harga %>" required min="1">
+                    <button type="submit" class="btn primary">Bayar Sekarang</button>
+                </form>
+            <% } %>
+        </div>
+
+        <a href="/" class="btn back-link">Kembali ke Cek Status</a>
+    </div>
+</body>
+</html>
