@@ -9,16 +9,18 @@ DROP TABLE IF EXISTS detail_pesanan;
 DROP TABLE IF EXISTS pesanan;
 DROP TABLE IF EXISTS layanan;
 DROP TABLE IF EXISTS pelanggan;
+DROP TABLE IF EXISTS pembayaran;
 
 ----------------------------------------------------
 -- TABLE PELANGGAN
 ----------------------------------------------------
-CREATE TABLE IF NOT EXISTS pelanggan (
+CREATE TABLE IF NOT EXISTS akun (
     id              VARCHAR(20) PRIMARY KEY,
     nama            VARCHAR(50),
     pass            VARCHAR(100),
     alamat          VARCHAR(255),
-    no_hp           VARCHAR(20)
+    no_hp           VARCHAR(20),
+    status_akun		VARCHAR(10)
 );
 
 ----------------------------------------------------
@@ -26,13 +28,13 @@ CREATE TABLE IF NOT EXISTS pelanggan (
 ----------------------------------------------------
 CREATE TABLE IF NOT EXISTS pesanan (
     no_pesanan          VARCHAR(20) PRIMARY KEY,
-    id_pelanggan        VARCHAR(20),
+    id_akun        		VARCHAR(20),
     status_pesanan      VARCHAR(30),
     tanggal_pesanan     DATE,
     tanggal_selesai     DATE,
     total_harga         INT DEFAULT 0,
 
-    FOREIGN KEY (id_pelanggan) REFERENCES pelanggan(id)
+    FOREIGN KEY (id_akun) REFERENCES akun(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
